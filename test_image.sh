@@ -20,7 +20,7 @@ wait_start() {
 }
 
 docker_start() {
-    container_id=$(docker run -d --network mysql-test -e DATA_SOURCE_NAME="root:secret@(mysql-test:3306)/" -p "${port}":"${port}" "${docker_image}")
+    container_id=$(docker run -d --network mysql-test -p "${port}":"${port}" "${docker_image}") --config.my-cnf=my.default.cnf
 }
 
 docker_cleanup() {
