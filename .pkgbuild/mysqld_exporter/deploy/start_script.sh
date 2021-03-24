@@ -21,7 +21,7 @@ ulimit -n 100000
 export LD_LIBRARY_PATH=/usr/local/easyops/ens_client/sdk:${LD_LIBRARY_PATH}
 
 # 执行准备
-install_path="${install_base}/${app_folder}/"
+install_path="${data_base}/${app_folder}/"
 if [[ ! -d ${install_path} ]]; then
     echo "${install_path} is not exist"
     exit 1
@@ -40,12 +40,10 @@ start_cmd="./bin/mysqld_exporter --web.listen-address=:9104 --config.my-cnf=${co
 # 日志目录
 log_path="${data_base}/${app_folder}/log"
 mkdir -p ${log_path}
-cd ${install_path} && ln -snf ${log_path} log
 
 # 数据目录
 data_path="${data_base}/${app_folder}/data"
 mkdir -p ${data_path}
-cd ${install_path} && ln -snf ${data_path} data
 
 
 #############################################################
