@@ -9,10 +9,8 @@
 
 # 用户自定义
 app_folder="mysqld_exporter"                 # 项目根目录
-process_name="mysqld_exporter"       # 进程名
-
-install_base="/data/exporter"          # 安装根目录
-data_base="/data/easyops"             # 日志/数据根目录
+process_name="mysqld_exporter"              # 进程名
+install_base="/data/exporter"              # 安装根目录
 
 #############################################################
 
@@ -34,9 +32,8 @@ start_cmd="./bin/mysqld_exporter --web.listen-address=:9104 --config.my-cnf=${co
 
 
 # 日志目录
-log_path="${data_base}/${app_folder}/log"
+log_path="${install_base}/${app_folder}/log"
 mkdir -p ${log_path}
-cd ${install_path} && ln -snf ${log_path} log
 
 
 #############################################################
