@@ -11,7 +11,7 @@
 app_folder="mysqld_exporter"                 # 项目根目录
 process_name="mysqld_exporter"       # 进程名
 
-install_base="/usr/local/easyops"       # 安装根目录
+install_base="/data/easyops"          # 安装根目录
 data_base="/data/easyops"             # 日志/数据根目录
 
 #############################################################
@@ -21,7 +21,7 @@ ulimit -n 100000
 export LD_LIBRARY_PATH=/usr/local/easyops/ens_client/sdk:${LD_LIBRARY_PATH}
 
 # 执行准备
-install_path="${data_base}/${app_folder}/"
+install_path="${install_base}/${app_folder}/"
 if [[ ! -d ${install_path} ]]; then
     echo "${install_path} is not exist"
     exit 1
