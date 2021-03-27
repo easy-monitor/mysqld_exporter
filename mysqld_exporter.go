@@ -262,6 +262,7 @@ func newHandler(metrics collector.Metrics, scrapers []collector.Scraper, logger 
 		if dsn, err = formExporterDSN(target, module, exportConf); err != nil {
 			level.Info(logger).Log("msg", "Error parsing target", "target", target, "err", err)
 			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
 		}
 
 		registry := prometheus.NewRegistry()
