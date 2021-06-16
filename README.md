@@ -30,11 +30,6 @@ NOTE: It is recommended to set a max connection limit for the user to avoid over
 
 ### Running
 
-Running using an environment variable:
-
-    export DATA_SOURCE_NAME='user:password@(hostname:3306)/'
-    ./mysqld_exporter <flags>
-
 Running using ~/.my.cnf:
 
     ./mysqld_exporter <flags>
@@ -109,12 +104,6 @@ web.listen-address                         | Address to listen on for web interf
 web.telemetry-path                         | Path under which to expose metrics.
 version                                    | Print the version information.
 
-### Setting the MySQL server's data source name
-
-The MySQL server's [data source name](http://en.wikipedia.org/wiki/Data_source_name)
-must be set via the `DATA_SOURCE_NAME` environment variable.
-The format of this variable is described at https://github.com/go-sql-driver/mysql#dsn-data-source-name.
-
 
 ## Customizing Configuration for a SSL Connection
 if The MySQL server supports SSL, you may need to specify a CA truststore to verify the server's chain-of-trust. You may also need to specify a SSL keypair for the client side of the SSL connection. To configure the mysqld exporter to use a custom CA certificate, add the following to the mysql cnf file:
@@ -130,8 +119,21 @@ ssl-key=/path/to/ssl/client/key
 ssl-cert=/path/to/ssl/client/cert
 ```
 
-Customizing the SSL configuration is only supported in the mysql cnf file and is not supported if you set the mysql server's data source name in the environment variable DATA_SOURCE_NAME.
+## Scrape Multi MySQL servers
+You can scrape MySQL servers from a single exporter instance with the `target` URL param
+Sample config file for multi exporter
 
+        [client]
+        host = localhost
+        port = 3306
+        user = root
+        password = abc123
+        [client.server1]
+        user = foo
+        password = foo123
+        [client.server2]
+        user = bar
+        password = bar123
 
 ## Using Docker
 
@@ -145,8 +147,7 @@ docker pull prom/mysqld-exporter
 
 docker run -d \
   -p 9104:9104 \
-  --network my-mysql-network  \
-  -e DATA_SOURCE_NAME="user:password@(hostname:3306)/" \
+  --network my-mysql-network  \ 
   prom/mysqld-exporter
 ```
 
